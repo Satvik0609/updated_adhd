@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Blocked - FocusFlow</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 600px;
+    }
+    
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    
+    .timer {
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 30px 0;
+    }
+    
+    button {
+      background: white;
+      color: #0ea5e9;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🍅</h1>
+    <h2>Focus Time Active!</h2>
+    <p>This website is blocked during your focus session. Stay focused and come back after your break!</p>
+    <div class="timer" id="timer">25:00</div>
+    <button onclick="window.close()">Close Tab</button>
+  </div>
+  
+  <script>
+    setInterval(() => {
+      chrome.storage.sync.get(['timeLeft'], (data) => {
+        const timeLeft = data.timeLeft || 0;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('timer').textContent = 
+          `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      });
+    }, 1000);
+  </script>
+</body>
+</html>
+

@@ -95,13 +95,18 @@ function StudySchedule() {
 
   return (
     <div className="component">
-      <h2>Study Schedule</h2>
-      <p className="description">
-        Create an ADHD-friendly study schedule with manageable daily tasks and built-in breaks.
-      </p>
+      <div className="component-header">
+        <div className="header-content">
+          <h2>Study Schedule</h2>
+          <div className="feature-badge">AI-Powered</div>
+        </div>
+        <p className="description">
+          Create an ADHD-friendly study schedule with manageable daily tasks and built-in breaks.
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="schedule-form">
-        <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+        <div className="form-group schedule-form-grid">
           <div>
             <label htmlFor="start-date">Start Date</label>
             <input
@@ -172,13 +177,29 @@ function StudySchedule() {
         </button>
       </form>
 
-      {error && <div className="error">{error}</div>}
+      {error && (
+        <div className="error modern-error">
+          <div className="error-content">
+            <span className="error-icon">
+              <Icon name="warning" />
+            </span>
+            <div>
+              <h4>Error</h4>
+              <p>{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {schedule && (
-        <div className="result">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="result modern-result card">
+          <div className="result-header">
             <h3>Your Study Schedule</h3>
-            <button onClick={handleDownloadPdf} className="action-btn download-btn"><Icon name="download" size={16} /> Download PDF</button>
+            <div className="result-actions">
+              <button onClick={handleDownloadPdf} className="action-btn download-btn">
+                <Icon name="download" size={16} /> Download PDF
+              </button>
+            </div>
           </div>
           <div className="result-content" dangerouslySetInnerHTML={{ 
             __html: schedule.replace(/\\(.?)\\*/g, '<strong>$1</strong>')

@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.2",
     "multer": "^2.0.2",
+    "nodemailer": "^7.0.11",
     "pdf-parse": "^2.4.5",
     "ytdl-core": "^4.11.5",
     "zod": "^4.1.12"

@@ -7,6 +7,8 @@ import * as media from "../controllers/mediaController.js";
 import * as chat from "../controllers/chatController.js";
 import * as schedule from "../controllers/scheduleController.js";
 import * as results from "../controllers/resultsController.js";
+import * as tasks from "../controllers/taskController.js";
+import * as reminders from "../controllers/reminderController.js";
 import authRoutes from "./authRoutes.js";
 import { validateYoutubeUrl, requireBodyField } from "../middleware/validateInput.js";
 import { protect } from "../middleware/authMiddleware.js";
@@ -34,6 +36,17 @@ router.post("/study-schedule", protect, schedule.studySchedule);
 router.get("/results", protect, results.listResults);
 router.get("/results/:id", protect, results.getResult);
 router.delete("/results/:id", protect, results.deleteResult);
+
+// Tasks
+router.post("/tasks", protect, requireBodyField("text"), tasks.createTask);
+router.get("/tasks", protect, tasks.getTasks);
+router.put("/tasks/:id", protect, tasks.updateTask);
+router.delete("/tasks/:id", protect, tasks.deleteTask);
+router.get("/tasks/reminders/upcoming", protect, tasks.getUpcomingReminders);
+
+// Reminders
+router.post("/reminders/:taskId/send-email", protect, reminders.sendReminderEmail);
+
 router.use("/auth", authRoutes);
 
 export default router;

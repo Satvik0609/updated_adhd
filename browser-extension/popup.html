@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByteForge FocusFlow</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 350px;
+      padding: 20px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      color: white;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+    
+    .header p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    
+    .status {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .status.active {
+      background: rgba(16, 185, 129, 0.3);
+    }
+    
+    .status h3 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    
+    .timer-display {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 10px 0;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+      color: #0ea5e9;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .blocked-sites {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .blocked-sites h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    
+    .site-list {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    
+    .site-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      margin-bottom: 5px;
+      font-size: 0.85rem;
+    }
+    
+    .add-site {
+      display: flex;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    
+    .add-site input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    
+    .add-site button {
+      padding: 8px 15px;
+    }
+    
+    .remove-btn {
+      background: rgba(239, 68, 68, 0.8);
+      color: white;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🍅 FocusFlow</h1>
+    <p>Stay focused, block distractions</p>
+  </div>
+  
+  <div class="status" id="status">
+    <h3>Focus Mode: <span id="modeStatus">Inactive</span></h3>
+    <div class="timer-display" id="timer">25:00</div>
+    <div class="controls">
+      <button id="startBtn">Start Timer</button>
+      <button id="stopBtn" disabled>Stop</button>
+    </div>
+  </div>
+  
+  <div class="blocked-sites">
+    <h3>Blocked Websites</h3>
+    <div class="site-list" id="siteList"></div>
+    <div class="add-site">
+      <input type="text" id="siteInput" placeholder="e.g., facebook.com">
+      <button id="addBtn">Add</button>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
+

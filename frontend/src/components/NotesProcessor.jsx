@@ -85,6 +85,9 @@ function NotesProcessor({ setContext }) {
       setTimeout(() => {
         setResult(response.data.processed);
         setContext(response.data.processed);
+        if (window.showToast) {
+          window.showToast("Notes processed successfully! 🎉", "success");
+        }
       }, 500);
     } catch (err) {
       setError(err.response?.data?.error || "Failed to process content");
@@ -256,7 +259,12 @@ function NotesProcessor({ setContext }) {
             <div className="result-actions">
               <button
                 className="action-btn copy-btn"
-                onClick={() => navigator.clipboard?.writeText(result)}
+                onClick={() => {
+                  navigator.clipboard?.writeText(result);
+                  if (window.showToast) {
+                    window.showToast("Copied to clipboard!", "success", 2000);
+                  }
+                }}
               >
                 <Icon name="copy" size={16} /> Copy
               </button>

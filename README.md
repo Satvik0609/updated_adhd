@@ -128,6 +128,14 @@ ENABLE_YTDLP=true
 ENABLE_FFMPEG=true
 ENABLE_PIPED_FALLBACK=true
 ENABLE_ASSEMBLYAI_URL=false
+
+# Email Reminders (NodeMailer) - Optional
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+SMTP_FROM=your_email@gmail.com
 ```
 
 ### 3. Frontend Setup
@@ -205,6 +213,14 @@ npm run preview
 - `POST /api/chat` - Chat with AI assistant
 - `POST /api/study-schedule` - Generate study schedule
 
+### Task Management
+- `POST /api/tasks` - Create a new task
+- `GET /api/tasks` - Get all tasks (optional: `?filter=active|completed|all`)
+- `PUT /api/tasks/:id` - Update a task
+- `DELETE /api/tasks/:id` - Delete a task
+- `GET /api/tasks/reminders/upcoming` - Get upcoming task reminders
+- `POST /api/reminders/:taskId/send-email` - Send email reminder for a task
+
 ### Results Management
 - `GET /api/results` - List all user results (optional: `?type=notes|media|transcribe`)
 - `GET /api/results/:id` - Get specific result
@@ -216,6 +232,29 @@ npm run preview
 **Note:** All endpoints except `/api/health` and `/api/auth/*` require JWT authentication.
 
 ---
+
+## 🌐 Browser Extension
+
+A browser extension is included for site blocking and focus timer integration:
+
+### Installation
+1. Open Chrome/Edge and navigate to `chrome://extensions/` (or `edge://extensions/`)
+2. Enable "Developer mode" (toggle in top right)
+3. Click "Load unpacked"
+4. Select the `browser-extension` folder
+5. The extension is now installed!
+
+### Features
+- 🚫 Block distracting websites during focus sessions
+- ⏱️ Integrated Pomodoro timer
+- 🔔 Browser notifications
+- 🎯 Auto-syncs with main app timer
+
+### Usage
+1. Click the extension icon in your browser toolbar
+2. Add websites to block (e.g., facebook.com, twitter.com)
+3. Start timer from the main app or extension
+4. Blocked sites are automatically blocked during focus sessions
 
 ## 📁 Project Structure
 
@@ -232,14 +271,17 @@ ByteForge/
 │   │   │   ├── notesController.js
 │   │   │   ├── scheduleController.js
 │   │   │   ├── transcribeController.js
-│   │   │   └── resultsController.js
+│   │   │   ├── resultsController.js
+│   │   │   ├── taskController.js  # Task CRUD operations
+│   │   │   └── reminderController.js  # Email reminders
 │   │   ├── middleware/
 │   │   │   ├── authMiddleware.js  # JWT verification
 │   │   │   ├── errorHandler.js   # Error handling
 │   │   │   └── validateInput.js # Input validation
 │   │   ├── models/
 │   │   │   ├── userModel.js      # User schema
-│   │   │   └── resultModel.js    # Results schema
+│   │   │   ├── resultModel.js    # Results schema
+│   │   │   └── taskModel.js      # Task schema
 │   │   ├── routes/
 │   │   │   ├── api.js            # API routes
 │   │   │   └── authRoutes.js    # Auth routes
@@ -252,20 +294,39 @@ ByteForge/
 │   ├── uploads/                  # Temporary file storage
 │   └── package.json
 │
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── ChatAssistant.jsx
-    │   │   ├── Login.jsx
-    │   │   ├── MeetingAssistant.jsx
-    │   │   ├── MeetingTranscriber.jsx
-    │   │   ├── NotesProcessor.jsx
-    │   │   ├── StudySchedule.jsx
-    │   │   └── Icon.jsx
-    │   ├── App.jsx               # Main component
-    │   ├── App.css               # Global styles
-    │   └── main.jsx              # React entry point
-    └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ChatAssistant.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── EnergyTracker.jsx
+│   │   │   ├── FocusMode.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── MeetingAssistant.jsx
+│   │   │   ├── MeetingTranscriber.jsx
+│   │   │   ├── NotesProcessor.jsx
+│   │   │   ├── PomodoroTimer.jsx
+│   │   │   ├── ProgressDashboard.jsx
+│   │   │   ├── QuickNotes.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── StudySchedule.jsx
+│   │   │   ├── TaskManager.jsx
+│   │   │   ├── Toast.jsx
+│   │   │   └── Icon.jsx
+│   │   ├── hooks/
+│   │   │   └── useToast.js       # Toast notification hook
+│   │   ├── App.jsx               # Main component
+│   │   ├── App.css               # Global styles
+│   │   └── main.jsx              # React entry point
+│   └── package.json
+└── browser-extension/            # Browser extension for site blocking
+    ├── manifest.json
+    ├── popup.html
+    ├── popup.js
+    ├── background.js
+    ├── content.js
+    ├── blocked.html
+    └── icons/
 ```
 
 ---
