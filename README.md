@@ -101,42 +101,7 @@ cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend` directory:
 
-```env
-# Server Configuration
-PORT=3001
-
-# Database
-MONGO_URI=mongodb://localhost:27017/focusflow
-# Or for MongoDB Atlas:
-# MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/focusflow
-
-# JWT Secret (generate a strong random string)
-JWT_SECRET=your_super_secret_jwt_key_here
-
-# Groq AI API (Required)
-GROQ_API_KEY=your_groq_api_key_here
-
-# Optional: YouTube Transcription Services
-SUPADATA_API_KEY=your_supadata_key_here
-ASSEMBLYAI_API_KEY=your_assemblyai_key_here
-
-# Optional: YouTube Download Settings
-ALLOW_YOUTUBE_FALLBACK=true
-ENABLE_YTDLP=true
-ENABLE_FFMPEG=true
-ENABLE_PIPED_FALLBACK=true
-ENABLE_ASSEMBLYAI_URL=false
-
-# Email Reminders (NodeMailer) - Optional
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
-SMTP_FROM=your_email@gmail.com
-```
 
 ### 3. Frontend Setup
 
@@ -159,10 +124,6 @@ VITE_API_BASE_URL=http://localhost:3001
 mongod
 ```
 
-**MongoDB Atlas:**
-- Create a free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- Get your connection string and add it to `.env`
-
 ---
 
 ## 🏃 Running the Project
@@ -174,14 +135,14 @@ mongod
 cd backend
 npm run dev
 ```
-Server will run on `http://localhost:3001`
+
 
 **Terminal 2 - Frontend:**
 ```bash
 cd frontend
 npm run dev
 ```
-Frontend will run on `http://localhost:5173` (or port shown in terminal)
+
 
 ### Production Mode
 
@@ -407,56 +368,7 @@ Transcriptions can be customized for different roles:
 
 ---
 
-## 🐛 Troubleshooting
 
-### MongoDB Connection Issues
-- Ensure MongoDB is running locally or Atlas cluster is accessible
-- Check `.env` file has correct `MONGO_URI`
-- Verify network connectivity
-
-### PDF Parsing Errors
-- Ensure PDF files are not corrupted
-- Check file size (max 50MB)
-- Verify pdf-parse package is installed correctly
-
-### YouTube Download Failures
-- Check if video is publicly accessible
-- Enable fallback options in `.env`
-- Verify yt-dlp is installed if using that option
-
-### AI API Errors
-- Verify `GROQ_API_KEY` is set correctly
-- Check API quota limits
-- Ensure internet connection is stable
-
----
-
-## 🤝 Contributing
-
-This project was built as a hackathon submission. Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
----
-
-## 📄 License
-
-This project is open source and available for educational purposes.
-
----
-
-## 🙏 Acknowledgments
-
-- **Groq** for providing fast AI inference
-- **MongoDB** for database services
-- All open-source libraries used in this project
-
----
-
-## 📧 Contact
 
 For questions or support, please open an issue on the repository.
 
