@@ -437,9 +437,6 @@ Transcriptions can be customized for different roles:
 5. Track your focus sessions
 
 ---
-
-
-<<<<<<< HEAD
 ### MongoDB Connection Issues
 - Ensure MongoDB is running locally or Atlas cluster is accessible
 - Check `.env` file has correct `MONGO_URI`
@@ -485,7 +482,7 @@ This project is open source and available for educational purposes.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Groq** for providing fast AI inference
 - **MongoDB** for database services
@@ -493,12 +490,5 @@ This project is open source and available for educational purposes.
 
 ---
 
-## 📧 Contact
-=======
->>>>>>> a3a5ba9a879022dd42d76489c6464bb4d84192e9
-
-For questions or support, please open an issue on the repository.
-
----
 
 **Built with ❤️ for ADHD and Neurodivergent Students**
