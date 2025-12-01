@@ -13,24 +13,27 @@ A comprehensive full-stack web application designed to help students with ADHD a
 - Extract text content from PDFs using advanced parsing
 - Generate ADHD-friendly summaries with key concepts, digestible chunks, and study tips
 - Automatically break down complex content into manageable sections
+- View and manage all processed notes in your dashboard
 
 ### 🎙️ Live Recording
 - Real-time meeting and lecture recording using browser MediaRecorder API
-- Instant transcription of recorded audio
+- Instant transcription of recorded audio using Groq Whisper
 - Role-aware summaries tailored to user's perspective (Student, Developer, etc.)
 - Automatic generation of study artifacts (notes, flashcards, quizzes)
+- Save recordings and transcripts for future reference
 
 ### 🎥 Upload Media
 - Upload audio/video files or provide YouTube URLs
 - Multiple transcription strategies with intelligent fallback:
-  - Supadata API for fast transcriptions
-  - AssemblyAI for comprehensive summaries
-  - Local transcription via Groq Whisper
-- Download and process YouTube videos automatically
+  - Supadata API for fast transcriptions (if API key provided)
+  - AssemblyAI for comprehensive summaries (if API key provided)
+  - Local transcription via Groq Whisper (default)
+  - YouTube download via ytdl-core with Piped fallback
 - Generate study materials from video content
+- Role-aware summaries based on your needs
 
 ### 💬 Ask Questions (Smart Chat)
-- Context-aware AI chat assistant
+- Context-aware AI chat assistant powered by Groq LLaMA
 - **Intelligent Resource Filtering**: Automatically detects when you mention specific resources
   - "PDF notes" → Uses only PDF/notes context
   - "YouTube video" → Uses only video/YouTube context
@@ -38,12 +41,65 @@ A comprehensive full-stack web application designed to help students with ADHD a
   - No mention → Uses all available context
 - Retrieves context from all previous sessions stored in database
 - Real-time conversation with ADHD-friendly responses
+- Chat history management
 
 ### 📅 Study Schedule Generator
 - Create personalized study schedules based on exam dates
 - Input topics and available study hours
 - AI-generated day-by-day study plans with breaks and variety
 - Optimized for ADHD-friendly learning patterns
+
+### ✅ Task Manager
+- Create, update, and delete tasks
+- Set task priorities (high, medium, low)
+- Add reminders with date and time
+- Recurring reminders support
+- Task categories and notes
+- Filter tasks by status (active, completed, all)
+- Browser notifications for reminders
+- Email reminders (if SMTP configured)
+
+### ⏱️ Pomodoro Timer
+- Focus timer with customizable work/break intervals
+- Visual countdown display
+- Browser notifications
+- Session tracking
+- Integration with browser extension
+
+### 🎯 Focus Mode
+- Website blocking during focus sessions
+- Distraction-free environment
+- Syncs with Pomodoro timer
+- Customizable blocked sites list
+
+### 📊 Progress Dashboard
+- Track your study progress
+- View statistics: notes processed, recordings completed, study hours, tasks completed, pomodoros completed
+- Level system based on activity points
+- Streak tracking
+- Visual progress indicators
+
+### 📝 Quick Notes
+- Fast note-taking interface
+- Save and manage quick notes
+- Local storage for instant access
+
+### 🔥 Energy Tracker
+- Track your energy levels throughout the day
+- Identify peak productivity times
+- Plan study sessions around your energy patterns
+
+### 🏠 Dashboard
+- Overview of all your activities
+- Quick access to all features
+- Statistics and insights
+- Recent activity feed
+
+### 🌐 Browser Extension
+- Block distracting websites during focus sessions
+- Integrated Pomodoro timer
+- Browser notifications
+- Auto-syncs with main app timer
 
 ---
 
@@ -59,6 +115,7 @@ A comprehensive full-stack web application designed to help students with ADHD a
 - **pdf-parse** (v2.4.5) - PDF text extraction
 - **ytdl-core** - YouTube video downloading
 - **Zod** - Input validation
+- **Nodemailer** - Email reminders (optional)
 
 ### Frontend
 - **React 19** - UI framework
@@ -77,11 +134,12 @@ Before you begin, ensure you have the following installed:
 - **MongoDB** (local instance or MongoDB Atlas account)
 - **Groq API Key** ([Get one here](https://console.groq.com/))
 
-### Optional (for YouTube processing)
-- **Supadata API Key** (for fast transcriptions)
+### Optional (for enhanced features)
+- **Supadata API Key** (for fast YouTube transcriptions)
 - **AssemblyAI API Key** (for advanced transcriptions)
 - **yt-dlp** (for YouTube download fallback)
 - **FFmpeg** (for audio conversion)
+- **SMTP credentials** (for email reminders)
 
 ---
 
@@ -256,6 +314,8 @@ A browser extension is included for site blocking and focus timer integration:
 3. Start timer from the main app or extension
 4. Blocked sites are automatically blocked during focus sessions
 
+---
+
 ## 📁 Project Structure
 
 ```
@@ -343,13 +403,13 @@ The chat assistant intelligently filters context based on your question:
 
 ### Multi-Strategy YouTube Processing
 
-When processing YouTube videos, the system requires:
-1. **ytdl-core** (direct download)
-2. ffmpeg (installed with ytdl)
+When processing YouTube videos, the system uses multiple fallback strategies:
+1. **Supadata API** (if configured) - Fast transcriptions
+2. **AssemblyAI** (if configured) - Comprehensive summaries
+3. **ytdl-core** - Direct download with Piped fallback
+4. **Groq Whisper** - Local transcription as final fallback
 
-This ensures maximum reliability and uptime.
-
-### PDF Processing with Modern API
+### PDF Processing
 
 Uses pdf-parse v2.4.5 with the new PDFParse class API:
 - Creates parser instance with buffer data
@@ -385,6 +445,7 @@ Transcriptions can be customized for different roles:
 2. Drag and drop or select a PDF file
 3. Wait for processing (shows progress)
 4. View the processed, ADHD-friendly breakdown
+5. Access processed notes from your results
 
 ### Recording a Meeting
 1. Go to "Live Recording" tab
@@ -392,6 +453,7 @@ Transcriptions can be customized for different roles:
 3. Speak or let the meeting record
 4. Click "Stop Recording"
 5. View transcript and AI-generated summary
+6. Save for future reference
 
 ### Asking Questions
 1. Go to "Ask Questions" tab
@@ -401,9 +463,23 @@ Transcriptions can be customized for different roles:
 
 ### YouTube Video Processing
 1. Go to "Upload Media" tab
-2. Paste a YouTube URL
+2. Paste a YouTube URL or upload a media file
 3. System downloads and transcribes automatically
 4. Get transcript, summary, flashcards, and quiz
+
+### Managing Tasks
+1. Go to "Task Manager" tab
+2. Create tasks with priorities and categories
+3. Set reminders with date/time
+4. Receive browser notifications
+5. Track completed tasks
+
+### Using Pomodoro Timer
+1. Go to "Pomodoro Timer" tab
+2. Set work and break intervals
+3. Start timer
+4. Get notifications when sessions end
+5. Track your focus sessions
 
 ---
 
@@ -423,11 +499,17 @@ Transcriptions can be customized for different roles:
 - Check if video is publicly accessible
 - Enable fallback options in `.env`
 - Verify yt-dlp is installed if using that option
+- System will automatically try fallback methods
 
 ### AI API Errors
 - Verify `GROQ_API_KEY` is set correctly
 - Check API quota limits
 - Ensure internet connection is stable
+
+### Authentication Issues
+- Clear browser localStorage and try logging in again
+- Check JWT_SECRET is set in backend `.env`
+- Verify token expiration (7 days)
 
 ---
 
