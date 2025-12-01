@@ -159,54 +159,13 @@ cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend` directory:
 
-```env
-# Server Configuration
-PORT=3001
-
-# Database
-MONGO_URI=mongodb://localhost:27017/focusflow
-# Or for MongoDB Atlas:
-# MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/focusflow
-
-# JWT Secret (generate a strong random string)
-JWT_SECRET=your_super_secret_jwt_key_here
-
-# Groq AI API (Required)
-GROQ_API_KEY=your_groq_api_key_here
-
-# Optional: YouTube Transcription Services
-SUPADATA_API_KEY=your_supadata_key_here
-ASSEMBLYAI_API_KEY=your_assemblyai_key_here
-
-# Optional: YouTube Download Settings
-ALLOW_YOUTUBE_FALLBACK=true
-ENABLE_YTDLP=true
-ENABLE_FFMPEG=true
-ENABLE_PIPED_FALLBACK=true
-ENABLE_ASSEMBLYAI_URL=false
-
-# Email Reminders (NodeMailer) - Optional
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
-SMTP_FROM=your_email@gmail.com
-```
 
 ### 3. Frontend Setup
 
 ```bash
 cd ../frontend
 npm install
-```
-
-Create a `.env` file in the `frontend` directory (optional):
-
-```env
-VITE_API_BASE_URL=http://localhost:3001
 ```
 
 ### 4. Start MongoDB
@@ -216,10 +175,6 @@ VITE_API_BASE_URL=http://localhost:3001
 # If using local MongoDB, make sure it's running
 mongod
 ```
-
-**MongoDB Atlas:**
-- Create a free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- Get your connection string and add it to `.env`
 
 ---
 
@@ -232,14 +187,14 @@ mongod
 cd backend
 npm run dev
 ```
-Server will run on `http://localhost:3001`
+
 
 **Terminal 2 - Frontend:**
 ```bash
 cd frontend
 npm run dev
 ```
-Frontend will run on `http://localhost:5173` (or port shown in terminal)
+
 
 ### Production Mode
 
@@ -483,8 +438,8 @@ Transcriptions can be customized for different roles:
 
 ---
 
-## 🐛 Troubleshooting
 
+<<<<<<< HEAD
 ### MongoDB Connection Issues
 - Ensure MongoDB is running locally or Atlas cluster is accessible
 - Check `.env` file has correct `MONGO_URI`
@@ -539,6 +494,8 @@ This project is open source and available for educational purposes.
 ---
 
 ## 📧 Contact
+=======
+>>>>>>> a3a5ba9a879022dd42d76489c6464bb4d84192e9
 
 For questions or support, please open an issue on the repository.
 
